@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        form#firstform {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        input,
+        button {
+            padding: 10px;
+            margin: 10px;
+            display: block;
+            width: 300px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="firstform" method="POST" action="lassan.html">
+        <input type="text" name="text" id="name" />
+        <span class="error"></span>
+        <input type="email" name="email" id="email" />
+        <span class="error"></span>
+        <button type="submit" id="btn">SUBMIT</button>
+    </form>
+    <script type="text/javascript">
+        "use strict";
+        function validatename(name, valuer) {
+            var msg;
+            //Checking for Name isn't empty
+            if (valuer == "") {
+                msg = "Name cannot be null";
+                printerror(name, msg);
+                return false;
+            }
+            //Checking whether name is valid or not, Name shouldn't have anything else than alphabets
+            if (valuer.match(/[^a-zA-Z]+$/)) {
+                msg = "Name doesn't include a number";
+                printerror(name, msg);
+                return false;
+            }
+            return true;
+        }
+
+        function validatemail(name, valuer) {
+            var msg;
+            // Checking whether email id is null or not
+            if (valuer == "") {
+                msg = "Email cannot be null";
+                printerror(name, msg);
+                return false;
+            }
+            return true;
+        }
+
+        function validation(e) {
+            //Preventing default form behavior on submit
+            e.preventDefault();
+            var name = document.getElementById("name");
+            var email = document.getElementById("email");
+            var msg;
+            //Checking both name and email
+            if (validatename(name, name.value) && validatemail(email, email.value)) {
+                e.target.submit();
+            }
+        }
+        //Printing the error message on next element present, in this case span
+        function printerror(position, msg) {
+            position.nextElementSibling.innerHTML = msg;
+        }
+        //Applying form validation on click of form
+        document.getElementById('firstform').addEventListener('submit', validation);
+
+    </script>
+</body>
+
+</html>
